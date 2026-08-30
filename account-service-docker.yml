@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://account-db:5432/AccountService
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-server:8761/eureka/
+  instance:
+    prefer-ip-address: true

@@ -1,0 +1,18 @@
+server:
+  port: 8080
+
+spring:
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: account-service
+              uri: lb://account-service
+              predicates:
+                - Path=/api/users/**,/api/auth/**,/api/admin/**,/api/wallets/**
+
+            - id: transaction-service
+              uri: lb://transaction-service
+              predicates:
+                - Path=/api/transactions/**,/api/transfers/**,/api/beneficiaries/**
