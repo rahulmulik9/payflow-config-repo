@@ -18,3 +18,8 @@ logging:
   level:
     org.hibernate.SQL: trace
     org.hibernate.orm.jdbc.bind: trace
+
+management:
+  health:
+    eureka:
+      enabled: false
