@@ -21,3 +21,16 @@ logging:
 
 account-service:
   url: http://account-service
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      accountService:
+        register-health-indicator: true
+        sliding-window-size: 10
+        minimum-number-of-calls: 5
+        failure-rate-threshold: 50
+        wait-duration-in-open-state: 10s
+        permitted-number-of-calls-in-half-open-state: 3
+        ignore-exceptions:
+          - com.rahul.transaction_service.exception.WalletNotFoundException
