@@ -26,11 +26,11 @@ resilience4j:
   circuitbreaker:
     instances:
       accountService:
-        register-health-indicator: true
-        sliding-window-size: 10
-        minimum-number-of-calls: 5
-        failure-rate-threshold: 50
-        wait-duration-in-open-state: 10s
+        register-health-indicator: true       # exposes this CB's status on /actuator/health
+        sliding-window-size: 10                # judges failure rate on the last 10 calls only
+        minimum-number-of-calls: 5             # won't evaluate failure rate until 5 calls happened
+        failure-rate-threshold: 50             # opens the circuit once >=50% of the window failed
+        wait-duration-in-open-state: 10s       # stays OPEN this long before trying HALF_OPEN
         permitted-number-of-calls-in-half-open-state: 3
         ignore-exceptions:
           - com.rahul.transaction_service.exception.WalletNotFoundException
@@ -41,3 +41,27 @@ resilience4j:
       accountService:
         max-attempts: 3
         wait-duration: 500ms
+        # Exponential backoff: instead of retrying every flat 500ms, the wait
+        # grows between attempts - attempt 1 fails -> wait ~500ms -> attempt 2
+        # fails -> wait ~500ms * 2 = ~1000ms
+        enable-exponential-backoff: true
+        exponential-backoff-multiplier: 2
+        ignore-exceptions:
+            - com.rahul.transaction_service.exception.WalletNotFoundException
+            - com.rahul.transaction_service.exception.InsufficientBalanceException
+            -
+  ratelimiter:
+    instances:
+      accountService:
+        # Proactive, not reactive: caps outgoing calls before anything fails.
+        # Max 10 calls/sec to Account Service, regardless of success/failure.
+        limit-for-period: 10
+        limit-refresh-period: 1s
+        # 11th call waits up to 500ms for next window, else fails fast.
+        timeout-duration: 500ms
+
+#  retry:
+#    instances:
+#      accountService:
+#        max-attempts: 3
+#        wait-duration: 500ms
