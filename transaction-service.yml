@@ -34,3 +34,10 @@ resilience4j:
         permitted-number-of-calls-in-half-open-state: 3
         ignore-exceptions:
           - com.rahul.transaction_service.exception.WalletNotFoundException
+          - com.rahul.transaction_service.exception.InsufficientBalanceException
+
+  retry:
+    instances:
+      accountService:
+        max-attempts: 3
+        wait-duration: 500ms

@@ -10,4 +10,4 @@ management:
   endpoints:
     web:
       exposure:
-        include: health, refresh, circuitbreakers, circuitbreakerevents
+        include: health, refresh, circuitbreakers, circuitbreakerevents, retries, retryevents
