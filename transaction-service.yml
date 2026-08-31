@@ -49,7 +49,7 @@ resilience4j:
         ignore-exceptions:
             - com.rahul.transaction_service.exception.WalletNotFoundException
             - com.rahul.transaction_service.exception.InsufficientBalanceException
-            -
+
   ratelimiter:
     instances:
       accountService:
@@ -59,6 +59,12 @@ resilience4j:
         limit-refresh-period: 1s
         # 11th call waits up to 500ms for next window, else fails fast.
         timeout-duration: 500ms
+
+  bulkhead:
+     instances:
+       accountService:
+         max-concurrent-calls: 5   # at most 5 calls to Account Service in-flight at once
+         max-wait-duration: 500ms  # a 6th call waits up to this long for a slot, then fails fast
 
 #  retry:
 #    instances:
