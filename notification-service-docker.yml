@@ -1,4 +1,11 @@
 spring:
+  datasource:
+    url: jdbc:postgresql://notification-db:5432/NotificationService
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: update
   kafka:
     bootstrap-servers: kafka:9092
     consumer:
