@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5433/FraudService
+    url: jdbc:postgresql://localhost:5433/MonitoringService
     username: root
     password: root
   jpa:
