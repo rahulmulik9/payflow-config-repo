@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://fraud-db:5432/MonitoringService
+    url: jdbc:postgresql://monitoring-db:5432/MonitoringService
     username: root
     password: root
   jpa:
@@ -9,7 +9,7 @@ spring:
   kafka:
     bootstrap-servers: kafka:9092
     consumer:
-      group-id: fraud-service-group
+      group-id: monitor-service-group
       auto-offset-reset: earliest
 
 eureka:
