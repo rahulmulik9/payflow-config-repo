@@ -19,7 +19,7 @@ spring:
         health-indicator:
           enabled: false
 
-logging:
-  level:
-    org.hibernate.SQL: trace
-    org.hibernate.orm.jdbc.bind: trace
+#logging:
+#  level:
+#    org.hibernate.SQL: trace
+#    org.hibernate.orm.jdbc.bind: trace
